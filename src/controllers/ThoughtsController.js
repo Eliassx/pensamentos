@@ -1,6 +1,10 @@
 const Thoughts = require('../model/Thoughts');
 
 module.exports = {
+  async dashboard(request, response) {
+    return response.render('thoughts/dashboard')
+  },
+  
   async createThoughts(request, response) {
     const { title, description } = request.body;
 
@@ -37,13 +41,13 @@ module.exports = {
       }
     )
 
-    return response.json({ "message": "Updated Thoughts!" });
+    return response.json({ message: "Updated Thoughts!" });
   },
   async deleteThoughts(request, response) {
     const { id } = request.params;
 
     const deleteThoughts = await Thoughts.destroy({ where: { id } });
 
-    return response.json({ "message": "Deleted Thoughts!" })
+    return response.json({ message: "Deleted Thoughts!" })
   }
 }
