@@ -2,9 +2,13 @@ const Thoughts = require('../model/Thoughts');
 
 module.exports = {
   async dashboard(request, response) {
-    return response.render('thoughts/dashboard')
+    return response.render('thoughts/dashboard');
   },
   
+  async registerThought(request, response) {
+    return response.render('thoughts/register');
+  },
+
   async createThoughts(request, response) {
     const { title, description } = request.body;
 
@@ -15,11 +19,13 @@ module.exports = {
 
     return response.json(thought);
   },
+
   async findThoughts(request, response) {
     const thoughts = await Thoughts.findAll({ raw: true });
 
     return response.json(thoughts);
   },
+
   async findOneThought(request, response) {
     const { id } = request.params;
 
@@ -27,6 +33,7 @@ module.exports = {
 
     return response.json(thought);
   },
+
   async updateThought(request, response) {
     const { id } = request.params;
     const { title, description } = request.body;
@@ -43,6 +50,7 @@ module.exports = {
 
     return response.json({ message: "Updated Thoughts!" });
   },
+
   async deleteThoughts(request, response) {
     const { id } = request.params;
 
