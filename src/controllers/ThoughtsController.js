@@ -2,7 +2,9 @@ const Thoughts = require('../model/Thoughts');
 
 module.exports = {
   async dashboard(request, response) {
-    return response.render('thoughts/dashboard');
+    const thoughts = await Thoughts.findAll({ raw: true });
+
+    return response.render('thoughts/dashboard', { thoughts });
   },
   
   async registerThought(request, response) {
@@ -17,21 +19,21 @@ module.exports = {
         description,
     });
 
-    return response.json(thought);
+    try{
+      if(thought) {
+        return response.redirect("/thoughts/dashboard")
+      }
+    }catch(error) {
+      console.error(error)
+    }
   },
 
-  async findThoughts(request, response) {
-    const thoughts = await Thoughts.findAll({ raw: true });
-
-    return response.json(thoughts);
-  },
-
-  async findOneThought(request, response) {
+  async showPageEditThought(request, response) {
     const { id } = request.params;
 
     const thought = await Thoughts.findByPk(id);
 
-    return response.json(thought);
+    return response.render("/thoughts/edit",{ thought });
   },
 
   async updateThought(request, response) {
