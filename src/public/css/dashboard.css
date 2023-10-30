@@ -81,3 +81,17 @@
     background-color: #068fff;
     color: #fff;
 }
+
+.dashboard .content .thoughts-list .buttons form button{
+    background: none;
+    border: 2px solid #068fff;
+    padding: 8px;
+    color: #068fff;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.dashboard .content .thoughts-list .buttons form button:hover{
+    background-color: #068fff;
+    color: #fff;
+}

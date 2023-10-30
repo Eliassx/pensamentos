@@ -17,8 +17,10 @@
         <div class="thoughts-list">
             <p>{{  this.description  }}</p>
             <div class="buttons">
-                <a href="">Editar</a>
-                <a href="">Excluir</a>
+                <a href="/thoughts/edit/{{ this.id  }}">Editar</a>
+                <form action="/thoughts/remove/{{ this.id }}">
+                    <button type="submit">Excluir</button>
+                </form>
             </div>
         </div>
         {{/each}}

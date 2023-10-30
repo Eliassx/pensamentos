@@ -31,9 +31,9 @@ module.exports = {
   async showPageEditThought(request, response) {
     const { id } = request.params;
 
-    const thought = await Thoughts.findByPk(id);
+    const thought = await Thoughts.findOne({ where: { id }, raw: true });
 
-    return response.render("/thoughts/edit",{ thought });
+    return response.render("thoughts/edit", { thought });
   },
 
   async updateThought(request, response) {
@@ -50,14 +50,26 @@ module.exports = {
       }
     )
 
-    return response.json({ message: "Updated Thoughts!" });
+    try{
+      if(updateThought) {
+        return response.redirect("/thoughts/dashboard");
+      }
+    }catch(error) {
+      console.error(error)
+    }
   },
 
-  async deleteThoughts(request, response) {
+  async removeThoughts(request, response) {
     const { id } = request.params;
 
-    const deleteThoughts = await Thoughts.destroy({ where: { id } });
+    const destroyThoughts = await Thoughts.destroy({ where: { id } });
 
-    return response.json({ message: "Deleted Thoughts!" })
+    try {
+      if(destroyThoughts) {
+        return response.redirect("/thoughts/dashboard")
+      }
+    }catch(error) {
+      console.error(error)
+    }
   }
 }
